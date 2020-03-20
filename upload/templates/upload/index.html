@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Upload!</title>
+  </head>
+  <body>
+
+    {% if flag %}
+      <h1 style="color:red;">Files Uploaded!</h1>
+    {% else %}
+
+      <h1>Select Multipe Files!</h1>
+    {% endif %}
+
+    <form enctype='multipart/form-data' method='POST' >
+      {% csrf_token %}
+    <input type='file' name='myfile' id='myfile' multiple />
+    <pre id="filelist" style="display:none;"></pre>
+    <button type='submit'>Submit</button>
+
+</form>
+<script type="text/javascript">
+  document.getElementById('myfile').addEventListener('change', function(e) {
+  var list = document.getElementById('filelist');
+  list.innerHTML = '';
+  for (var i = 0; i < this.files.length; i++) {
+    list.innerHTML += (i + 1) + '. ' + this.files[i].name + '\n';
+  }
+  if (list.innerHTML == '') list.style.display = 'none';
+  else list.style.display = 'block';
+});
+</script>
+  </body>
+</html>
